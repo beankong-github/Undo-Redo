@@ -31,6 +31,7 @@ void CommandSystem::InputCommand(std::string commandName, ExecuteFunc execute, E
 
 void CommandSystem::Flush()
 {
+
 	for (int i = 0; i < curIndex; ++i)
 	{
 		// 실행
@@ -38,6 +39,12 @@ void CommandSystem::Flush()
 
 		undoStack.Push(commandQueue[i]);
 		commandQueue[i] = nullptr;
+	}
+
+	// 새 입력 시작되면 과거 Redo는 무효
+	if (curIndex != 0)
+	{
+		while (!redoStack.IsEmpty()) redoStack.Pop(); // 간단 제거
 	}
 
 	curIndex = 0;
