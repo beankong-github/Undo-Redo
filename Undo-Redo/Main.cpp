@@ -2,22 +2,15 @@
 #include <sstream>
 #include <Windows.h>   
 
-//입력 큐 -> 키보드 이벤트 저장
-// Undo 용 스택 구현
-// Redo 용 스택 구현
-// command pattern
-
-// a, b, c, d, e 키 입력
-// 입력 큐에 넣기
-// 입력 큐에 들어온 순서대로 undo 스택에 기록
-//  "undo" 입력-> undo 명령
-// "redo" 입력 ->redo 명령
-// "show" 입력 -> undo 스택과 redo 스택 내용 출력
-
 #include "Command.h"
+
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 
 int main()
 {
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 	CommandSystem CS;
 
@@ -64,7 +57,7 @@ int main()
 				undo = []() {std::cout << "\nUndo E"; };
 				CS.InputCommand("E", execute, undo);
 			}
-			else if (c == '\\')
+			else
 				break;
 
 
